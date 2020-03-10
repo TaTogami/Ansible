@@ -1,0 +1,14 @@
+- hosts: router
+  remote_user: cisco
+  gather_facts: no
+  tasks:
+  - name: sh clock
+    raw : "show clock"
+    register: show_clock
+  - name: sh clock output
+    local_action: shell /bin/echo "{{ show_clock.stdout }}" > /root/ansible/shclock_{{ inventory_hostname }}.txt 
+  - name: sh ver
+    raw : "show ver"
+    register: show_ver
+  - name: sh ver output
+    local_action: shell /bin/echo "{{ show_ver.stdout }}" > /root/ansible/shver_{{ inventory_hostname }}.txt
